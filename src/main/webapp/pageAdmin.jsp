@@ -25,7 +25,8 @@
 			out.println("Numero: " + flight.getFlightNumber());
 			out.println("Compania: " + flight.getCompany());
 			out.println("Data: " + flight.getTime());
-			out.println("Numero: " + flight.getState().getClass().getSimpleName());
+			out.println("Estado: " + flight.getState().getClass().getSimpleName());
+			out.println("<a href=\"airport.do?action=updateFlight&flightNumberUpdate=" + flight.getFlightNumber() + "\">Atualizar</a>");
 			out.println("\n\n\n");
 		}
 	

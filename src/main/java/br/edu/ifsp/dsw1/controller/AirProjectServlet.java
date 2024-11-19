@@ -57,12 +57,20 @@ public class AirProjectServlet extends HttpServlet {
 				}
 				else
 				{
-					if("registerFlight".equals(action)) {
-					view = handleRegisterFlight(request, response);
+					if("registerFlight".equals(action)) 
+					{
+						view = handleRegisterFlight(request, response);
 					}
 					else
 					{
-						view = "index.jsp";
+						if("updateFlight".equals(action))
+						{
+							view = handleUpdateStateFlight(request, response);
+						}
+						else
+						{
+							view = "index.jsp";
+						}
 					}
 				}
 				
@@ -154,6 +162,15 @@ public class AirProjectServlet extends HttpServlet {
 		request.setAttribute("listFlights", datasource.getAllFligthts());
 		
 		return "pageAdmin.jsp";
+	}
+	
+	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		Long flightNumber = Long.parseLong(request.getParameter("flightNumberUpdate"));
+		
+		datasource.updateFlight(flightNumber);
+		
+		return "airport.do?action=redirectTo";
 	}
 	
 }
