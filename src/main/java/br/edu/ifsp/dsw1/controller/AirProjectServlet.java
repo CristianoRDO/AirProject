@@ -1,13 +1,16 @@
 package br.edu.ifsp.dsw1.controller;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import br.edu.ifsp.dsw1.model.entity.FlightData;
+import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
+import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 
 @WebServlet("/airport.do")
 public class AirProjectServlet extends HttpServlet {
@@ -42,7 +45,28 @@ public class AirProjectServlet extends HttpServlet {
 		}
 		else
 		{
-			view = "index.jsp";
+			if("logout".equals(action))
+			{
+				view = handleLogout(request, response);
+			}
+			else
+			{
+				if("redirectTo".equals(action))
+				{
+					view = handlePageAdmin(request, response);
+				}
+				else
+				{
+					if("registerFlight".equals(action)) {
+					view = handleRegisterFlight(request, response);
+					}
+					else
+					{
+						view = "index.jsp";
+					}
+				}
+				
+			}
 		}
 		
 		var dispatcher = request.getRequestDispatcher(view);
@@ -76,5 +100,60 @@ public class AirProjectServlet extends HttpServlet {
 		return false;
 	}
 	
-
+	private String handleLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		var session = request.getSession(false);
+		session.invalidate();
+		return "index.jsp";
+	}
+	
+	private String handleRegisterFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		var flightNumber = Long.parseLong(request.getParameter("flightNumber"));
+		var flightCompany = request.getParameter("flightCompany");
+		var flightTime = request.getParameter("flightTime");
+		
+		if(!findFlightByNumber(flightNumber))
+		{
+			//if(!isFutureArrivalTime(flightTime))
+			//{
+				FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
+				flight.setState(Arriving.getIntance());
+				
+				datasource.insertFlight(flight);
+				request.setAttribute("success", "Voo Cadastrado Com Sucesso!");
+				
+				return "airport.do?action=redirectTo";
+			//}
+			//else
+			//{
+				//request.setAttribute("error", "Data Inválida.");
+			//}
+		}
+		else
+		{
+			request.setAttribute("error", "Voo Já Cadastrado.");
+		}
+		
+		return "formFlight.jsp";
+	}
+	
+	private boolean findFlightByNumber(Long flightNumber) {
+	    return datasource.getAllFligthts().stream()
+	            .anyMatch(f -> f.getFlightNumber().equals(flightNumber));
+	}
+		
+	/*private boolean isFutureArrivalTime(String flightTime) 
+	{
+	    var arrivingDateTime = LocalDateTime.parse(flightTime);
+	    return arrivingDateTime.isAfter(LocalDateTime.now());
+	}*/
+	
+	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		request.setAttribute("listFlights", datasource.getAllFligthts());
+		
+		return "pageAdmin.jsp";
+	}
+	
 }
