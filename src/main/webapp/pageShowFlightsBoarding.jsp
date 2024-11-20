@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<% var isLogged = session.getAttribute("user"); %> 
+<% 
+	var isLogged = session.getAttribute("user"); 
+	var isLoadData = request.getAttribute("loadData");
+	
+	if(isLoadData == null)
+	{
+		response.sendRedirect("airport.do?action=redirectTo&page=pageShowFlightsBoarding");
+		return;
+	}
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +25,5 @@
 	<h1>Voos Embarcando</h1>
 		
 	<%@ include file="/includes/scripts.html" %>
-	
 </body>
 </html>

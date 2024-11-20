@@ -171,7 +171,7 @@ public class AirProjectServlet extends HttpServlet {
 				datasource.insertFlight(flight);
 				request.setAttribute("success", "Voo Cadastrado Com Sucesso!");
 				
-				return "airport.do?action=redirectTo";
+				return "airport.do?action=redirectTo&page=pageAdmin";
 			}
 			else
 			{
@@ -215,18 +215,22 @@ public class AirProjectServlet extends HttpServlet {
 	}
 	
 	private String handlePageFlightsArriving(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("loadData", true);
 		return "pageShowFlightsArriving.jsp";
 	}
 	
 	private String handlePageFlightsBoarding(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("loadData", true);
 		return "pageShowFlightsBoarding.jsp";
 	}
 	
 	private String handlePageFlightsTakingOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("loadData", true);
 		return "pageShowFlightsTakingOff.jsp";
 	}
 	
 	private String handlePageFlightsTookOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("loadData", true);
 		return "pageShowFlightsTookOff.jsp";
 	}
 	

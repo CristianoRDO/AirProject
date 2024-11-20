@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-   	<%
-		var isLogged = session.getAttribute("user"); 
+<%
+	var isLogged = session.getAttribute("user"); 
    	
-	   	if(isLogged == null)
-		{
-			response.sendRedirect("airport.do?action=redirectTo");
-			return;
-		}
-	%> 
+	if(isLogged == null)
+	{
+		response.sendRedirect("airport.do?action=redirectTo");
+		return;
+	}
+%> 
 	
 <!DOCTYPE html>
 <html>

@@ -7,7 +7,6 @@
 	if (isLogged != null) {
 		response.sendRedirect("airport.do?action=validateIsLogged");
 	}
-	
 %> 
    
     

@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<% var isLogged = session.getAttribute("user"); %> 
+<% 
+	var isLogged = session.getAttribute("user"); 
+	var isLoadData = request.getAttribute("loadData");
+	
+	if(isLoadData == null)
+	{
+		response.sendRedirect("airport.do?action=redirectTo&page=pageShowFlightsArriving");
+		return;
+	}
+%> 
 
 <!DOCTYPE html>
 <html>
