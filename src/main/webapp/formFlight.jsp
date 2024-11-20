@@ -8,14 +8,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>AirPort - Cadastro de Voos</title>
+	<meta charset="UTF-8">
+	<title>AirPort - Cadastro de Voos</title>
+	<%@ include file="/includes/head.html" %>
 </head>
 <body>
 	<%@ include file="/includes/navBar.jsp" %>
 	
 	<div class = "formLogin">
-		<h1>Login</h1>
+		<h1>Cadastrar Voo</h1>
         
         <form action = "airport.do?action=registerFlight" method = "post">
         	<div class = "field">
@@ -43,6 +44,7 @@
 			<button type = "submit">CADASTRAR</button>
 		</form>
 	</div>
-
+	
+	<%@ include file="/includes/scripts.html" %>
 </body>
 </html>

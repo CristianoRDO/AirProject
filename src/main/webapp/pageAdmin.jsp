@@ -9,8 +9,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>AirPort - Página Adminstrador</title>
+	<meta charset="UTF-8">
+	<title>AirPort - Página Adminstrador</title>
+	<%@ include file="/includes/head.html" %>
 </head>
 <body>
 
@@ -31,6 +32,7 @@
 		}
 	
 	%>
-
+	
+	<%@ include file="/includes/scripts.html" %>
 </body>
 </html>

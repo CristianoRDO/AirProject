@@ -14,14 +14,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<title>AirPort - Login</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>AirPort - Login</title>
+	<%@ include file="/includes/head.html" %>
 </head>
 <body>
 	<%@ include file="/includes/navBar.jsp" %>
@@ -51,5 +46,6 @@
 		</form>
 	</div>
 	
+	<%@ include file="/includes/scripts.html" %>
 </body>
 </html>
