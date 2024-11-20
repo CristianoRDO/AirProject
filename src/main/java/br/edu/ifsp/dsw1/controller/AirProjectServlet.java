@@ -1,7 +1,9 @@
 package br.edu.ifsp.dsw1.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
@@ -123,8 +125,8 @@ public class AirProjectServlet extends HttpServlet {
 		
 		if(!findFlightByNumber(flightNumber))
 		{
-			//if(!isFutureArrivalTime(flightTime))
-			//{
+			if(!isFutureArrivalTime(flightTime))
+			{
 				FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
 				flight.setState(Arriving.getIntance());
 				
@@ -132,11 +134,11 @@ public class AirProjectServlet extends HttpServlet {
 				request.setAttribute("success", "Voo Cadastrado Com Sucesso!");
 				
 				return "airport.do?action=redirectTo";
-			//}
-			//else
-			//{
-				//request.setAttribute("error", "Data Inválida.");
-			//}
+			}
+			else
+			{
+				request.setAttribute("error", "Data Inválida.");
+			}
 		}
 		else
 		{
@@ -151,11 +153,11 @@ public class AirProjectServlet extends HttpServlet {
 	            .anyMatch(f -> f.getFlightNumber().equals(flightNumber));
 	}
 		
-	/*private boolean isFutureArrivalTime(String flightTime) 
+	private boolean isFutureArrivalTime(String flightTime) 
 	{
-	    var arrivingDateTime = LocalDateTime.parse(flightTime);
-	    return arrivingDateTime.isAfter(LocalDateTime.now());
-	}*/
+		var time = LocalDateTime.parse(flightTime);
+		return time.isBefore(LocalDateTime.now());
+	}
 	
 	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{

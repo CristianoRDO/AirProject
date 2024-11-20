@@ -30,17 +30,17 @@
 			
 			<div class = "field">
 				<label for = "flightTime">Data </label>
-				<input type = "date" name = "flightTime" id = "flightTime" required>
+				<input type = "datetime-local" name = "flightTime" id = "flightTime" required>
 			</div>
 			
 			<%
 				String msg = (String) request.getAttribute("error");
 				if (msg != null ) {
 					
-					out.print("<span>Dados inválidos</span>");
+					out.print("<span>"+ msg +"</span>");
 				}
 			%>
-			<button type = "submit">LOGIN</button>
+			<button type = "submit">CADASTRAR</button>
 		</form>
 	</div>
 
