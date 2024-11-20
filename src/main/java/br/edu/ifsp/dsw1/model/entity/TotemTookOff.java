@@ -3,6 +3,8 @@ package br.edu.ifsp.dsw1.model.entity;
 import br.edu.ifsp.dsw1.model.flightstates.TookOff;
 
 public class TotemTookOff extends TotemModel{
+	
+	private static TotemTookOff totemTookOff = null;
 
 	public TotemTookOff() {
 		super();
@@ -23,5 +25,12 @@ public class TotemTookOff extends TotemModel{
 		}
 		
 	}
+	
+	public static TotemTookOff getInstance() {
+        if (totemTookOff == null) {
+        	totemTookOff= new TotemTookOff();
+        }
+        return totemTookOff;
+    }
 
 }

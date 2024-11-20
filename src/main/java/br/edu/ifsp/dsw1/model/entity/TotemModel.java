@@ -20,7 +20,7 @@ public abstract class TotemModel implements FlightDataObserver{
 	
 	public FlightData findByNumber(Long flightNumber) {
 		return getFlights().stream()
-				.filter(flight -> flight.getFlightNumber() == flightNumber)
+				.filter(flight -> flight.getFlightNumber().equals(flightNumber))
 				.findFirst()
 				.orElse(null);
 	}

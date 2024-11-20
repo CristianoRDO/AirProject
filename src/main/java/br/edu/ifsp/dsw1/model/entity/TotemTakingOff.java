@@ -3,6 +3,8 @@ package br.edu.ifsp.dsw1.model.entity;
 import br.edu.ifsp.dsw1.model.flightstates.TakingOff;
 
 public class TotemTakingOff extends TotemModel{
+	
+	private static TotemTakingOff totemTakingOff = null;
 
 	public TotemTakingOff() {
 		super();
@@ -21,7 +23,13 @@ public class TotemTakingOff extends TotemModel{
 		{
             getFlights().removeIf(existingFlight -> existingFlight.getFlightNumber().equals(flight.getFlightNumber()));
 		}
-		
 	}
+	
+	public static TotemTakingOff getInstance() {
+        if (totemTakingOff == null) {
+        	totemTakingOff = new TotemTakingOff();
+        }
+        return totemTakingOff;
+    }
 
 }

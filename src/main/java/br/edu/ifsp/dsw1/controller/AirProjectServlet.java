@@ -1,12 +1,15 @@
 package br.edu.ifsp.dsw1.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
+import br.edu.ifsp.dsw1.model.entity.TotemArriving;
+import br.edu.ifsp.dsw1.model.entity.TotemBoarding;
+import br.edu.ifsp.dsw1.model.entity.TotemModel;
+import br.edu.ifsp.dsw1.model.entity.TotemTookOff;
+import br.edu.ifsp.dsw1.model.entity.TotemTakingOff;
 import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,17 +24,30 @@ public class AirProjectServlet extends HttpServlet {
 	private final String user = "admin";
 	private final String password = "admin";
 	private FlightDataCollection datasource;
+	private TotemModel totemArriving;
+	private TotemModel totemBoarding;
+	private TotemModel totemTookOff;
+	private TotemModel totemTakingOff;
 	
 	public void init() throws ServletException {
 		super.init();
 		datasource = new FlightDataCollection();
+		
+		totemArriving = TotemArriving.getInstance();
+		totemBoarding = TotemBoarding.getInstance();
+		totemTakingOff = TotemTakingOff.getInstance();
+		totemTookOff = TotemTookOff.getInstance();
+		
+		datasource.register(totemArriving);
+		datasource.register(totemBoarding);
+		datasource.register(totemTakingOff);
+		datasource.register(totemTookOff);
 	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
@@ -226,21 +242,26 @@ public class AirProjectServlet extends HttpServlet {
 	}
 	
 	private String handlePageFlightsArriving(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setAttribute("listTotemFlightsArriving", totemArriving.getFlights());
 		request.setAttribute("loadData", true);
 		return "pageShowFlightsArriving.jsp";
 	}
 	
 	private String handlePageFlightsBoarding(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("listTotemFlightsBoarding", totemBoarding.getFlights());
 		request.setAttribute("loadData", true);
 		return "pageShowFlightsBoarding.jsp";
 	}
 	
 	private String handlePageFlightsTakingOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("listTotemFlightsTakingOff", totemTakingOff.getFlights());
 		request.setAttribute("loadData", true);
 		return "pageShowFlightsTakingOff.jsp";
 	}
 	
 	private String handlePageFlightsTookOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("listTotemFlightsTookOff", totemTookOff.getFlights());
 		request.setAttribute("loadData", true);
 		return "pageShowFlightsTookOff.jsp";
 	}

@@ -4,7 +4,9 @@ import br.edu.ifsp.dsw1.model.flightstates.Boarding;
 
 public class TotemBoarding extends TotemModel {
 	
-	public TotemBoarding()
+	private static TotemBoarding totemBoarding = null;
+	
+	private TotemBoarding()
 	{
 		super();
 	}
@@ -15,7 +17,10 @@ public class TotemBoarding extends TotemModel {
 		{
 			if(flight.getState() instanceof Boarding)
 			{
-				getFlights().add(new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime()));
+				FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
+				flightTotem.setState(flight.getState());
+				
+				getFlights().add(flightTotem);
 			}
 		}
 		else
@@ -23,5 +28,12 @@ public class TotemBoarding extends TotemModel {
             getFlights().removeIf(existingFlight -> existingFlight.getFlightNumber().equals(flight.getFlightNumber()));
 		}
 	}
+	
+	public static TotemBoarding getInstance() {
+        if (totemBoarding == null) {
+        	totemBoarding = new TotemBoarding();
+        }
+        return totemBoarding;
+    }
 
 }

@@ -4,6 +4,8 @@ import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 
 public class TotemArriving extends TotemModel{
 	
+	private static TotemArriving totemArrinving = null;
+	
 	public TotemArriving() {
 		super();
 	}
@@ -20,7 +22,13 @@ public class TotemArriving extends TotemModel{
 		else
 		{
             getFlights().removeIf(existingFlight -> existingFlight.getFlightNumber().equals(flight.getFlightNumber()));
-		}
-		
+		}	
 	}
+	
+	public static TotemArriving getInstance() {
+        if (totemArrinving == null) {
+        	totemArrinving = new TotemArriving();
+        }
+        return totemArrinving;
+    }
 }
