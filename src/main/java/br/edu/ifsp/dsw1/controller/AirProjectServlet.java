@@ -55,7 +55,45 @@ public class AirProjectServlet extends HttpServlet {
 			{
 				if("redirectTo".equals(action))
 				{
-					view = handlePageAdmin(request, response);
+					String page = request.getParameter("page");
+					
+					if("pageAdmin".equals(page))
+					{
+						view = handlePageAdmin(request, response);
+					}
+					else
+					{
+						if("pageShowFlightsArriving".equals(page))
+						{
+							view = handlePageFlightsArriving(request, response);
+						}
+						else
+						{
+							if("pageShowFlightsBoarding".equals(page))
+							{
+								view = handlePageFlightsBoarding(request, response);
+							}
+							else
+							{
+								if("pageShowFlightsTakingOff".equals(page))
+								{
+									view = handlePageFlightsTakingOff(request, response);
+								}
+								else
+								{
+									if("pageShowFlightsTookOff".equals(page))
+									{
+										view = handlePageFlightsTookOff(request, response);
+									}
+									else
+									{
+										view = "index.jsp";
+									}
+								}
+							}
+						}
+					}
+					
 				}
 				else
 				{
@@ -162,6 +200,7 @@ public class AirProjectServlet extends HttpServlet {
 	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		request.setAttribute("listFlights", datasource.getAllFligthts());
+		request.setAttribute("loadData", true);
 		
 		return "pageAdmin.jsp";
 	}
@@ -172,7 +211,23 @@ public class AirProjectServlet extends HttpServlet {
 		
 		datasource.updateFlight(flightNumber);
 		
-		return "airport.do?action=redirectTo";
+		return "airport.do?action=redirectTo&page=pageAdmin";
+	}
+	
+	private String handlePageFlightsArriving(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "pageShowFlightsArriving.jsp";
+	}
+	
+	private String handlePageFlightsBoarding(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "pageShowFlightsBoarding.jsp";
+	}
+	
+	private String handlePageFlightsTakingOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "pageShowFlightsTakingOff.jsp";
+	}
+	
+	private String handlePageFlightsTookOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "pageShowFlightsTookOff.jsp";
 	}
 	
 }

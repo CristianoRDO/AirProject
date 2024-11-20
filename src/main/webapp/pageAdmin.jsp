@@ -5,6 +5,22 @@
     
     <%
 		var isLogged = session.getAttribute("user"); 
+    
+    	if(isLogged == null)
+    	{
+    		response.sendRedirect("airport.do?action=redirectTo");
+    		return;
+    	}
+    	else
+    	{
+    		var isLoadData = request.getAttribute("loadData");
+    		
+    		if(isLoadData == null)
+    		{
+    			response.sendRedirect("airport.do?action=redirectTo&page=pageAdmin");
+    			return;
+    		}
+    	}
 	%> 
 <!DOCTYPE html>
 <html>

@@ -10,19 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="airport.do?action=redirectTo">Administração</a>
+                    <a class="nav-link" href="airport.do?action=redirectTo&page=pageAdmin">Administração</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sala de Embarque</a>
+                    <a class="nav-link" href="airport.do?action=redirectTo&page=pageShowFlightsBoarding">Sala de Embarque</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sala de Desembarque</a>
+                    <a class="nav-link" href="airport.do?action=redirectTo&page=pageShowFlightsArriving">Sala de Desembarque</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hall 1</a>
+                    <a class="nav-link" href="airport.do?action=redirectTo&page=pageShowFlightsTakingOff">Hall 1</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hall 2</a>
+                    <a class="nav-link" href="airport.do?action=redirectTo&page=pageShowFlightsTookOff">Hall 2</a>
                 </li>
 
                 <!-- Login/Logout -->

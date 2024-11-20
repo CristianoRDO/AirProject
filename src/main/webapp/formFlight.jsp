@@ -3,6 +3,12 @@
 
    	<%
 		var isLogged = session.getAttribute("user"); 
+   	
+	   	if(isLogged == null)
+		{
+			response.sendRedirect("airport.do?action=redirectTo");
+			return;
+		}
 	%> 
 	
 <!DOCTYPE html>

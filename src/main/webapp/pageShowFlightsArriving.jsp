@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<% var isLogged = session.getAttribute("user"); %> 
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>AirPort - Sala de Desembarque</title>
+	<meta charset="UTF-8">
+	<title>AirPort - Sala de Desembarque</title>
+	<%@ include file="/includes/head.html" %>
 </head>
 <body>
-
+	<%@ include file="/includes/navBar.jsp" %>
+	
+	<h1>Voos Desembarcando</h1>
+		
+	<%@ include file="/includes/scripts.html" %>
 </body>
 </html>

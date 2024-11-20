@@ -14,6 +14,8 @@
 </head>
 <body>
 	<%@ include file="/includes/navBar.jsp" %>
+	
+	<h1>Index</h1>
 		
 	<%@ include file="/includes/scripts.html" %>
 </body>
