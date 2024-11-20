@@ -1,5 +1,7 @@
 package br.edu.ifsp.dsw1.model.entity;
 
+import java.util.List;
+
 import br.edu.ifsp.dsw1.model.flightstates.TookOff;
 
 public class TotemTookOff extends TotemModel{
@@ -12,18 +14,24 @@ public class TotemTookOff extends TotemModel{
 	
 	@Override
 	public void update(FlightData flight) {
-		if(findByNumber(flight.getFlightNumber()) == null)
-		{
-			if(flight.getState() instanceof TookOff)
-			{
-				getFlights().add(new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime()));
-			}
+		if (flight != null) {
+		    // Obter a lista de voos uma vez.
+		    List<FlightData> flights = getFlights();
+		    
+		    // Verificar se o voo já existe.
+		    FlightData existingFlight = findByNumber(flight.getFlightNumber());
+		    
+		    // Se o voo não existir, e o estado for Boarding, adicionamos no Totem.
+		    if (existingFlight == null && flight.getState() instanceof TookOff) 
+		    {
+		        FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
+		        flightTotem.setState(flight.getState());
+		        flights.add(flightTotem);
+		    } else if (existingFlight != null) {
+		        // Se o voo já existe, removemos do Totem.
+		        flights.remove(existingFlight);
+		    }
 		}
-		else
-		{
-            getFlights().removeIf(existingFlight -> existingFlight.getFlightNumber().equals(flight.getFlightNumber()));
-		}
-		
 	}
 	
 	public static TotemTookOff getInstance() {
