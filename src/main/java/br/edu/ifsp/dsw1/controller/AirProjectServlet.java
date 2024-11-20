@@ -8,21 +8,22 @@ import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 import br.edu.ifsp.dsw1.model.entity.TotemArriving;
 import br.edu.ifsp.dsw1.model.entity.TotemBoarding;
 import br.edu.ifsp.dsw1.model.entity.TotemModel;
-import br.edu.ifsp.dsw1.model.entity.TotemTookOff;
 import br.edu.ifsp.dsw1.model.entity.TotemTakingOff;
+import br.edu.ifsp.dsw1.model.entity.TotemTookOff;
 import br.edu.ifsp.dsw1.model.flightstates.Arriving;
+import br.edu.ifsp.dsw1.utils.Constants;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 @WebServlet("/airport.do")
 public class AirProjectServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private final String user = "admin";
-	private final String password = "admin";
 	private FlightDataCollection datasource;
 	private TotemModel totemArriving;
 	private TotemModel totemBoarding;
@@ -57,93 +58,41 @@ public class AirProjectServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String view;
 		
-		if("login".equals(action))
-		{
-			view = handleLogin(request, response);
+		if ("login".equals(action)) {
+		    view = handleLogin(request, response);
+		} else if ("logout".equals(action)) {
+		    view = handleLogout(request, response);
+		} else if ("registerFlight".equals(action)) {
+		    view = handleRegisterFlight(request, response);
+		} else if ("updateFlight".equals(action)) {
+		    view = handleUpdateStateFlight(request, response);
+		} else if ("redirectTo".equals(action)) {
+		    String page = request.getParameter("page");
+		    
+		    if ("pageAdmin".equals(page)) {
+		        view = handlePageAdmin(request, response);
+		    } else if ("pageShowFlightsArriving".equals(page)) {
+		        view = handlePageFlightsArriving(request, response);
+		    } else if ("pageShowFlightsBoarding".equals(page)) {
+		        view = handlePageFlightsBoarding(request, response);
+		    } else if ("pageShowFlightsTakingOff".equals(page)) {
+		        view = handlePageFlightsTakingOff(request, response);
+		    } else if ("pageShowFlightsTookOff".equals(page)) {
+		        view = handlePageFlightsTookOff(request, response);
+		    } else if ("loginAdmin".equals(page)) {
+		        view = handleLoginAdmin(request, response);
+		    } else {
+		        view = Constants.INDEX;
+		    }
+		} else {
+		    view = Constants.INDEX;
 		}
-		else
-		{
-			if("logout".equals(action))
-			{
-				view = handleLogout(request, response);
-			}
-			else
-			{
-				if("redirectTo".equals(action))
-				{
-					String page = request.getParameter("page");
-					
-					if("pageAdmin".equals(page))
-					{
-						view = handlePageAdmin(request, response);
-					}
-					else
-					{
-						if("pageShowFlightsArriving".equals(page))
-						{
-							view = handlePageFlightsArriving(request, response);
-						}
-						else
-						{
-							if("pageShowFlightsBoarding".equals(page))
-							{
-								view = handlePageFlightsBoarding(request, response);
-							}
-							else
-							{
-								if("pageShowFlightsTakingOff".equals(page))
-								{
-									view = handlePageFlightsTakingOff(request, response);
-								}
-								else
-								{
-									if("pageShowFlightsTookOff".equals(page))
-									{
-										view = handlePageFlightsTookOff(request, response);
-									}
-									else
-									{
-										if("loginAdmin".equals(page))
-										{
-											view = handleLoginAdmin(request, response);
-										}
-										else
-										{
-											view = "index.jsp";
-										}
-									}
-								}
-							}
-						}
-					}
-					
-				}
-				else
-				{
-					if("registerFlight".equals(action)) 
-					{
-						view = handleRegisterFlight(request, response);
-					}
-					else
-					{
-						if("updateFlight".equals(action))
-						{
-							view = handleUpdateStateFlight(request, response);
-						}
-						else
-						{
-							view = "index.jsp";
-						}
-					}
-				}
-				
-			}
-		}
+
 		
 		var dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
-		
 	}
+		
 	
 	private String handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		var user = request.getParameter("user");
@@ -153,17 +102,17 @@ public class AirProjectServlet extends HttpServlet {
 			var session = request.getSession();
 			session.setAttribute("user", user);
 			
-			return "pageAdmin.jsp";
+			return Constants.PAGE_ADMIN;
 		} 
 		else {
 			request.setAttribute("message", "Dados Inválidos.");
-			return "loginAdmin.jsp";
+			return Constants.LOGIN_ADMIN;
 		}
 	}
 	
 	private boolean validateLogin(String user, String password)
 	{
-		if(this.user.equals(user) && this.password.equals(password)){
+		if(Constants.USER.equals(user) && Constants.PASSWORD.equals(password)){
 			return true;
 		}
 		
@@ -174,7 +123,7 @@ public class AirProjectServlet extends HttpServlet {
 	{
 		var session = request.getSession(false);
 		session.invalidate();
-		return "index.jsp";
+		return Constants.INDEX;
 	}
 	
 	private String handleRegisterFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -205,7 +154,7 @@ public class AirProjectServlet extends HttpServlet {
 			request.setAttribute("error", "Voo Já Cadastrado.");
 		}
 		
-		return "formFlight.jsp";
+		return Constants.FORM_FLIGHT;
 	}
 	
 	private boolean findFlightByNumber(Long flightNumber) {
@@ -224,12 +173,12 @@ public class AirProjectServlet extends HttpServlet {
 		request.setAttribute("listFlights", datasource.getAllFligthts());
 		request.setAttribute("loadData", true);
 		
-		return "pageAdmin.jsp";
+		return Constants.PAGE_ADMIN;
 	}
 	
 	private String handleLoginAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		return "loginAdmin.jsp";
+		return Constants.LOGIN_ADMIN;
 	}
 	
 	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -240,30 +189,29 @@ public class AirProjectServlet extends HttpServlet {
 		
 		return "airport.do?action=redirectTo&page=pageAdmin";
 	}
-	
+
+	private String handlePageFlights(HttpServletRequest request, HttpServletResponse response, TotemModel totem, String attributeName, String pageName) throws ServletException, IOException {
+	    request.setAttribute(attributeName, totem.getFlights());
+	    request.setAttribute("loadData", true);
+	    return pageName;
+	}
+
 	private String handlePageFlightsArriving(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setAttribute("listTotemFlightsArriving", totemArriving.getFlights());
-		request.setAttribute("loadData", true);
-		return "pageShowFlightsArriving.jsp";
+	    return handlePageFlights(request, response, totemArriving, "listTotemFlightsArriving", Constants.PAGE_SHOW_FLIGHTS_ARRIVING);
 	}
-	
+
 	private String handlePageFlightsBoarding(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("listTotemFlightsBoarding", totemBoarding.getFlights());
-		request.setAttribute("loadData", true);
-		return "pageShowFlightsBoarding.jsp";
+	    return handlePageFlights(request, response, totemBoarding, "listTotemFlightsBoarding", Constants.PAGE_SHOW_FLIGHTS_BOARDING);
 	}
-	
+
 	private String handlePageFlightsTakingOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("listTotemFlightsTakingOff", totemTakingOff.getFlights());
-		request.setAttribute("loadData", true);
-		return "pageShowFlightsTakingOff.jsp";
+	    return handlePageFlights(request, response, totemTakingOff, "listTotemFlightsTakingOff", Constants.PAGE_SHOW_FLIGHTS_TAKING_OFF);
 	}
-	
+
 	private String handlePageFlightsTookOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("listTotemFlightsTookOff", totemTookOff.getFlights());
-		request.setAttribute("loadData", true);
-		return "pageShowFlightsTookOff.jsp";
+	    return handlePageFlights(request, response, totemTookOff, "listTotemFlightsTookOff", Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF);
 	}
+
+
 	
 }

@@ -1,5 +1,5 @@
-<%@page import="br.edu.ifsp.dsw1.model.entity.FlightData"%>
-<%@page import="java.util.List"%>
+<%@ page import="br.edu.ifsp.dsw1.model.entity.FlightData"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
