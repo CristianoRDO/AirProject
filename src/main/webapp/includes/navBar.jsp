@@ -1,3 +1,7 @@
+<%
+    var isLogged = request.getParameter("isLogged");
+%>
+
 <nav class="navbar navbar-expand-lg bg-secondary-subtle">
     <div class="container-fluid">
 
@@ -27,7 +31,7 @@
 
                 <!-- Login/Logout -->
                 <% 
-                    if(isLogged != null){
+                    if(isLogged.equals("true")){
                         out.println("<li class='nav-item'><a class='nav-link' href='airport.do?action=logout'>Logout</a></li>");
                     }
                     else {

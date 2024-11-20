@@ -9,7 +9,7 @@
     
     if(isLogged == null)
     {
-    	response.sendRedirect("airport.do?action=redirectTo");
+    	response.sendRedirect("airport.do?action=redirectTo&page=loginAdmin");
     	return;
     }
    	else
@@ -33,11 +33,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>AirPort - Página Adminstrador</title>
-	<%@ include file="/includes/head.html" %>
+	<jsp:include page="/includes/head.html" />
 </head>
 <body>
-
-	<%@ include file="/includes/navBar.jsp" %>
+	<jsp:include page="/includes/navBar.jsp">
+    	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
+	</jsp:include>
 	
 	<a href = "formFlight.jsp">Cadastrar Voo</a>
 	
@@ -58,6 +59,6 @@
 	
 	%>
 	
-	<%@ include file="/includes/scripts.html" %>
+	<jsp:include page="/includes/scripts.html" />
 </body>
 </html>

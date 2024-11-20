@@ -87,7 +87,14 @@ public class AirProjectServlet extends HttpServlet {
 									}
 									else
 									{
-										view = "index.jsp";
+										if("loginAdmin".equals(page))
+										{
+											view = handleLoginAdmin(request, response);
+										}
+										else
+										{
+											view = "index.jsp";
+										}
 									}
 								}
 							}
@@ -125,13 +132,12 @@ public class AirProjectServlet extends HttpServlet {
 	private String handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		var user = request.getParameter("user");
 		var password = request.getParameter("password");
-		String message;
 		
 		if(validateLogin(user, password)){
 			var session = request.getSession();
 			session.setAttribute("user", user);
 			
-			return "index.jsp";
+			return "pageAdmin.jsp";
 		} 
 		else {
 			request.setAttribute("message", "Dados Inválidos.");
@@ -203,6 +209,11 @@ public class AirProjectServlet extends HttpServlet {
 		request.setAttribute("loadData", true);
 		
 		return "pageAdmin.jsp";
+	}
+	
+	private String handleLoginAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		return "loginAdmin.jsp";
 	}
 	
 	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

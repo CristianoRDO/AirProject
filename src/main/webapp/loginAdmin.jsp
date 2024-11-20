@@ -5,7 +5,7 @@
 	var isLogged = session.getAttribute("user"); 
 	
 	if (isLogged != null) {
-		response.sendRedirect("airport.do?action=validateIsLogged");
+		response.sendRedirect("airport.do?action=redirectTo&page=pageAdmin");
 	}
 %> 
    
@@ -15,10 +15,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>AirPort - Login</title>
-	<%@ include file="/includes/head.html" %>
+	<jsp:include page="/includes/head.html" />
 </head>
 <body>
-	<%@ include file="/includes/navBar.jsp" %>
+	<jsp:include page="/includes/navBar.jsp">
+    	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
+	</jsp:include>
 		
 	<div class = "formLogin">
 		<h1>Login</h1>
@@ -45,6 +47,6 @@
 		</form>
 	</div>
 	
-	<%@ include file="/includes/scripts.html" %>
+	<jsp:include page="/includes/scripts.html" />
 </body>
 </html>

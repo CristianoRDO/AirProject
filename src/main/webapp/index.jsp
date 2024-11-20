@@ -10,13 +10,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>AirPort - Inicial</title>
-	<%@ include file="/includes/head.html" %>
+	<jsp:include page="/includes/head.html" />
 </head>
 <body>
-	<%@ include file="/includes/navBar.jsp" %>
+	<jsp:include page="/includes/navBar.jsp">
+    	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
+	</jsp:include>
 	
 	<h1>Index</h1>
 		
-	<%@ include file="/includes/scripts.html" %>
+	<jsp:include page="/includes/scripts.html" />
 </body>
 </html>
