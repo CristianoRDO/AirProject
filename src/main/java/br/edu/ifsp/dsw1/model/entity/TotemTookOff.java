@@ -2,9 +2,9 @@ package br.edu.ifsp.dsw1.model.entity;
 
 import br.edu.ifsp.dsw1.model.flightstates.TookOff;
 
-public class TotemTookOf extends TotemModel{
+public class TotemTookOff extends TotemModel{
 
-	public TotemTookOf() {
+	public TotemTookOff() {
 		super();
 	}
 	
