@@ -36,7 +36,7 @@
 		                    if(isLogged != null && isLogged.equals("true")) {
 		                        out.println("<a class='nav-link' href='airport.do?action=logout'>Logout</a>");
 		                    } else {
-		                        out.println("<a class='nav-link btn btn-secondary' href='loginAdmin.jsp'>Login</a>");
+		                        out.println("<a class='nav-link btn btn-secondary' href='airport.do?action=redirectTo&page=loginAdmin.jsp'>Login</a>");
 		                    }
 		                %>
                 	</li>
