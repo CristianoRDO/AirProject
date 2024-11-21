@@ -1,5 +1,10 @@
 package br.edu.ifsp.dsw1.utils;
 
+/**
+ * Classe final Constants que armazena todas as constantes usadas na aplicação.
+ * Serve como um repositório central de valores fixos para evitar repetição e facilitar a manutenção.
+ */
+
 public final class Constants {
 	
     // Parâmetros de login
