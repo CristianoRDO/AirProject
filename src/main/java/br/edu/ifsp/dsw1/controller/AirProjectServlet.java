@@ -2,6 +2,7 @@ package br.edu.ifsp.dsw1.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
@@ -12,7 +13,6 @@ import br.edu.ifsp.dsw1.model.entity.TotemTakingOff;
 import br.edu.ifsp.dsw1.model.entity.TotemTookOff;
 import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 import br.edu.ifsp.dsw1.utils.Constants;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -90,7 +90,6 @@ public class AirProjectServlet extends HttpServlet {
 		    view = Constants.INDEX;
 		}
 
-		
 		var dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}
@@ -100,16 +99,20 @@ public class AirProjectServlet extends HttpServlet {
 		var user = request.getParameter("user");
 		var password = request.getParameter("password");
 		
+		if (user == null || user.isBlank() || password == null || password.isBlank()) {
+	        request.setAttribute("error", "Usuário e Senha são Obrigatórios.");
+	        return Constants.LOGIN_ADMIN;
+	    }
+		
 		if(validateLogin(user, password)){
 			var session = request.getSession();
 			session.setAttribute("user", user);
 			
 			return Constants.PAGE_ADMIN;
 		} 
-		else {
-			request.setAttribute("message", "Dados Inválidos.");
-			return Constants.LOGIN_ADMIN;
-		}
+		
+		request.setAttribute("error", "Dados Inválidos.");
+		return Constants.LOGIN_ADMIN;
 	}
 	
 	private boolean validateLogin(String user, String password)
@@ -130,31 +133,45 @@ public class AirProjectServlet extends HttpServlet {
 	
 	private String handleRegisterFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		var flightNumber = Long.parseLong(request.getParameter("flightNumber"));
+		var flightNumberStr = request.getParameter("flightNumber");
 		var flightCompany = request.getParameter("flightCompany");
 		var flightTime = request.getParameter("flightTime");
 		
-		if(!findFlightByNumber(flightNumber))
-		{
-			if(!isFutureArrivalTime(flightTime))
-			{
-				FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
-				flight.setState(Arriving.getIntance());
-				
-				datasource.insertFlight(flight);
-				request.setAttribute("success", "Voo Cadastrado Com Sucesso!");
-				
-				return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
-			}
-			else
-			{
-				request.setAttribute("error", "Data Inválida.");
-			}
-		}
-		else
-		{
-			request.setAttribute("error", "Voo Já Cadastrado.");
-		}
+		if (flightNumberStr == null || flightNumberStr.isBlank()) {
+	        request.setAttribute("error", "Número do Voo é Obrigatório.");
+	        return Constants.PAGE_FORM_FLIGHT;
+	    }
+
+	    if (flightCompany == null || flightCompany.isBlank()) {
+	        request.setAttribute("error", "Companhia Aérea é Obrigatória.");
+	        return Constants.PAGE_FORM_FLIGHT;
+	    }
+
+	    if (flightTime == null || flightTime.isBlank()) {
+	        request.setAttribute("error", "Horário do Voo é Obrigatório.");
+	        return Constants.PAGE_FORM_FLIGHT;
+	    }
+
+	    try {
+	        Long flightNumber = Long.parseLong(flightNumberStr);
+
+	        if (!findFlightByNumber(flightNumber)) {
+	            if (!isFutureArrivalTime(flightTime)) {
+	                FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
+	                flight.setState(Arriving.getIntance());
+	                datasource.insertFlight(flight);
+
+	                request.setAttribute("success", "Voo Cadastrado com Sucesso!");
+	                return Constants.PAGE_FORM_FLIGHT;
+	            } else {
+	                request.setAttribute("error", "Horário Inválido. O Voo Deve ter Horário Futuro.");
+	            }
+	        } else {
+	            request.setAttribute("error", "Voo já Cadastrado.");
+	        }
+	    } catch (NumberFormatException e) {
+	        request.setAttribute("error", "Número do Voo Deve Ser um Número Válido.");
+	    }
 		
 		return Constants.PAGE_FORM_FLIGHT;
 	}
@@ -165,8 +182,16 @@ public class AirProjectServlet extends HttpServlet {
 	}
 		
 	private boolean isFutureArrivalTime(String flightTime) {
-		var time = LocalDateTime.parse(flightTime);
-		return time.isBefore(LocalDateTime.now());
+		if (flightTime == null || flightTime.isBlank()) {
+	        return false; // Data inválida é tratada como não sendo futura.
+	    }
+
+	    try {
+	        LocalDateTime time = LocalDateTime.parse(flightTime);
+	        return time.isBefore(LocalDateTime.now());
+	    } catch (DateTimeParseException e) {
+	        return false; // Se não puder ser analisada, considera-se inválida.
+	    }
 	}
 	
 	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -185,10 +210,22 @@ public class AirProjectServlet extends HttpServlet {
 	}
 	
 	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long flightNumber = Long.parseLong(request.getParameter("flightNumberUpdate"));
-		
-		datasource.updateFlight(flightNumber);
-		
+		String flightNumberStr = request.getParameter("flightNumberUpdate");
+
+	    if (flightNumberStr == null || flightNumberStr.isBlank()) {
+	        request.setAttribute("error", "Número do Voo é Obrigatório Para Atualização.");
+	        return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
+	    }
+
+	    try {
+	        Long flightNumber = Long.parseLong(flightNumberStr);
+	        datasource.updateFlight(flightNumber);
+	        request.setAttribute("success", "Voo Atualizado Com Sucesso");
+	        return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
+	    } catch (NumberFormatException e) {
+	        request.setAttribute("error", "Número do Voo Deve Ser um Número Válido.");
+	    }
+	    
 		return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
 	}
 	

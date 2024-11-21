@@ -44,11 +44,18 @@
 			</div>
 			
 			<%
-				String msg = (String) request.getAttribute("error");
-				if (msg != null ) {
-					
-					out.print("<span>"+ msg +"</span>");
-				}
+			    String errorMsg = (String) request.getAttribute("error");
+			    String successMsg = (String) request.getAttribute("success");
+			
+			    if (errorMsg != null) {
+			%>
+			        <span style="color: red;"><%= errorMsg %></span>
+			<%
+			    } else if (successMsg != null) {
+			%>
+			        <span style="color: green;"><%= successMsg %></span>
+			<%
+			    }
 			%>
 			<button type = "submit">CADASTRAR</button>
 		</form>

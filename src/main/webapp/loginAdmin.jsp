@@ -38,11 +38,13 @@
 			</div>
 			
 			<%
-				String msg = (String) request.getAttribute("message");
-				if (msg != null ) {
-					
-					out.print("<span>Dados inválidos</span>");
-				}
+			    String errorMsg = (String) request.getAttribute("error");
+			
+			    if (errorMsg != null) {
+			%>
+			        <span style="color: red;"><%= errorMsg %></span>
+			<%
+			    }
 			%>
 			<button type = "submit">LOGIN</button>
 		</form>
