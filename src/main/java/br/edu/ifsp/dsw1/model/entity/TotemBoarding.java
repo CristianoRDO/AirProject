@@ -41,10 +41,10 @@ public class TotemBoarding extends TotemModel {
 		    {
 		        FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
 		        flightTotem.setState(flight.getState());
-		        flights.add(flightTotem);
+		        addList(flightTotem);
 		    } else if (existingFlight != null) {
 		        // Se o voo já existe, removemos do Totem.
-		        flights.remove(existingFlight);
+		    	removeList(existingFlight);
 		    }
 		}
 	}

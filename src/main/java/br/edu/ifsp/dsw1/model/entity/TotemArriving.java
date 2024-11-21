@@ -10,7 +10,7 @@ import br.edu.ifsp.dsw1.model.flightstates.Arriving;
  */
 public class TotemArriving extends TotemModel{
 	
-	private static TotemArriving totemArrinving = null;
+	private static TotemArriving totemArriving = null;
 	
 	/*
 	 * Construtor privado para impedir a criação de instâncias fora da classe.
@@ -39,10 +39,10 @@ public class TotemArriving extends TotemModel{
 		    {
 		        FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
 		        flightTotem.setState(flight.getState());
-		        flights.add(flightTotem);
+		        addList(flightTotem);
 		    } else if (existingFlight != null) {
 		        // Se o voo já existe, removemos do Totem.
-		        flights.remove(existingFlight);
+		        removeList(existingFlight);
 		    }
 		}
 	}
@@ -53,9 +53,9 @@ public class TotemArriving extends TotemModel{
 	 */
 	
 	public static TotemArriving getInstance() {
-        if (totemArrinving == null) {
-        	totemArrinving = new TotemArriving();
+        if (totemArriving == null) {
+        	totemArriving = new TotemArriving();
         }
-        return totemArrinving;
+        return totemArriving;
     }
 }

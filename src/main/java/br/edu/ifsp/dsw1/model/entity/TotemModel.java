@@ -28,6 +28,16 @@ public abstract class TotemModel implements FlightDataObserver{
 		return new ArrayList<>(datasource);
 	}
 	
+	public void addList(FlightData flight)
+	{
+		datasource.add(flight);
+	}
+	
+	public void removeList(FlightData flight)
+	{
+		datasource.remove(flight);
+	}
+	
 	/*
 	 * Método que encontra um voo específico pelo número do voo (flightNumber).
 	 * Utiliza o stream do Java para filtrar a lista de voos e encontra o voo que corresponde ao número fornecido.

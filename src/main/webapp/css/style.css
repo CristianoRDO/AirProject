@@ -9,12 +9,14 @@
 	background-color: #19232D;
 }
 
+
 .cabecalho a {
 	color: white;
     text-decoration: none;
     box-sizing: border-box;
     border-radius: 6px;
     border: 1px solid transparent;
+    max-width: auto;
 }
 
 .cabecalho a:hover {
