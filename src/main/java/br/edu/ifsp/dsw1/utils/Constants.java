@@ -2,7 +2,7 @@ package br.edu.ifsp.dsw1.utils;
 
 public final class Constants {
 	
-	//
+	// Nome do Servlet
 	public static final String SERVLET_NAME = "airport.do";
 	
 	// Caminhos para as páginas
@@ -13,11 +13,9 @@ public final class Constants {
     public static final String PAGE_SHOW_FLIGHTS_BOARDING = "pageShowFlightsBoarding.jsp";
     public static final String PAGE_SHOW_FLIGHTS_TAKING_OFF = "pageShowFlightsTakingOff.jsp";
     public static final String PAGE_SHOW_FLIGHTS_TOOK_OFF = "pageShowFlightsTookOff.jsp";
-    public static final String FORM_FLIGHT = "formFlight.jsp";
-
-    // Ações
+    public static final String PAGE_FORM_FLIGHT = "formFlight.jsp";
     
- // Prefixo de ação
+    // Prefixo de ação
     public static final String ACTION_PREFIX = "action";
 
     // Ações gerais

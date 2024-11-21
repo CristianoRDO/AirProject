@@ -1,3 +1,4 @@
+<%@page import="br.edu.ifsp.dsw1.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -6,7 +7,7 @@
    	
 	if(isLogged == null)
 	{
-		response.sendRedirect("airport.do?action=redirectTo");
+		response.sendRedirect(Constants.ACTION_REDIRECTTO_URL + Constants.INDEX);
 		return;
 	}
 %> 
@@ -26,7 +27,7 @@
 	<div class = "formLogin">
 		<h1>Cadastrar Voo</h1>
         
-        <form action = "airport.do?action=registerFlight" method = "post">
+        <form action = "<%= Constants.ACTION_REGISTER_FLIGHT_URL %>" method = "post">
         	<div class = "field">
         		<label for = "flightNumber">Numero do Voo </label>
         		<input type = "number" name = "flightNumber" id = "flightNumber" required>

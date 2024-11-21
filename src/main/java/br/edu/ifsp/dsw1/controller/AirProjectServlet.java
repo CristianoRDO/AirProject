@@ -71,7 +71,9 @@ public class AirProjectServlet extends HttpServlet {
 		    
 		    if (Constants.PAGE_ADMIN.equals(page)) {
 		        view = handlePageAdmin(request, response);
-		    } else if (Constants.PAGE_SHOW_FLIGHTS_ARRIVING.equals(page)) {
+		    } else if (Constants.LOGIN_ADMIN.equals(page)) {
+		        view = handleLoginAdmin(request, response);
+		    }else if (Constants.PAGE_SHOW_FLIGHTS_ARRIVING.equals(page)) {
 		        view = handlePageFlightsArriving(request, response);
 		    } else if (Constants.PAGE_SHOW_FLIGHTS_BOARDING.equals(page)) {
 		        view = handlePageFlightsBoarding(request, response);
@@ -79,8 +81,8 @@ public class AirProjectServlet extends HttpServlet {
 		        view = handlePageFlightsTakingOff(request, response);
 		    } else if (Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF.equals(page)) {
 		        view = handlePageFlightsTookOff(request, response);
-		    } else if (Constants.LOGIN_ADMIN.equals(page)) {
-		        view = handleLoginAdmin(request, response);
+		    } else if (Constants.PAGE_FORM_FLIGHT.equals(page)) {
+		        view = handlePageFormFlight(request, response);
 		    } else {
 		        view = Constants.INDEX;
 		    }
@@ -154,7 +156,7 @@ public class AirProjectServlet extends HttpServlet {
 			request.setAttribute("error", "Voo Já Cadastrado.");
 		}
 		
-		return Constants.FORM_FLIGHT;
+		return Constants.PAGE_FORM_FLIGHT;
 	}
 	
 	private boolean findFlightByNumber(Long flightNumber) {
@@ -162,34 +164,34 @@ public class AirProjectServlet extends HttpServlet {
 	            .anyMatch(f -> f.getFlightNumber().equals(flightNumber));
 	}
 		
-	private boolean isFutureArrivalTime(String flightTime) 
-	{
+	private boolean isFutureArrivalTime(String flightTime) {
 		var time = LocalDateTime.parse(flightTime);
 		return time.isBefore(LocalDateTime.now());
 	}
 	
-	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	private String handlePageAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("listFlights", datasource.getAllFligthts());
 		request.setAttribute("loadData", true);
 		
 		return Constants.PAGE_ADMIN;
 	}
 	
-	private String handleLoginAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	private String handleLoginAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return Constants.LOGIN_ADMIN;
 	}
 	
-	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	private String handlePageFormFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    return Constants.PAGE_FORM_FLIGHT;
+	}
+	
+	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long flightNumber = Long.parseLong(request.getParameter("flightNumberUpdate"));
 		
 		datasource.updateFlight(flightNumber);
 		
 		return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
 	}
-
+	
 	private String handlePageFlights(HttpServletRequest request, HttpServletResponse response, TotemModel totem, String attributeName, String pageName) throws ServletException, IOException {
 	    request.setAttribute(attributeName, totem.getFlights());
 	    request.setAttribute("loadData", true);
@@ -211,6 +213,8 @@ public class AirProjectServlet extends HttpServlet {
 	private String handlePageFlightsTookOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    return handlePageFlights(request, response, totemTookOff, "listTotemFlightsTookOff", Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF);
 	}
+	
+	
 
 
 	

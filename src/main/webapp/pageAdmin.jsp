@@ -41,7 +41,8 @@
     	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
 	</jsp:include>
 	
-	<a href = "formFlight.jsp">Cadastrar Voo</a>
+	<a href="<%= Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_FORM_FLIGHT %>">Cadastrar Voo</a>
+
 	
 	<%  
 		if(datasource != null)
