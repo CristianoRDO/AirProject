@@ -58,28 +58,28 @@ public class AirProjectServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String view;
 		
-		if ("login".equals(action)) {
+		if (Constants.LOGIN.equals(action)) {
 		    view = handleLogin(request, response);
-		} else if ("logout".equals(action)) {
+		} else if (Constants.LOGOUT.equals(action)) {
 		    view = handleLogout(request, response);
-		} else if ("registerFlight".equals(action)) {
+		} else if (Constants.REGISTER_FLIGHT.equals(action)) {
 		    view = handleRegisterFlight(request, response);
-		} else if ("updateFlight".equals(action)) {
+		} else if (Constants.UPDATE_FLIGHT.equals(action)) {
 		    view = handleUpdateStateFlight(request, response);
-		} else if ("redirectTo".equals(action)) {
-		    String page = request.getParameter("page");
+		} else if (Constants.REDIRECTTO.equals(action)) {
+		    String page = request.getParameter(Constants.PAGE);
 		    
-		    if ("pageAdmin".equals(page)) {
+		    if (Constants.PAGE_ADMIN.equals(page)) {
 		        view = handlePageAdmin(request, response);
-		    } else if ("pageShowFlightsArriving".equals(page)) {
+		    } else if (Constants.PAGE_SHOW_FLIGHTS_ARRIVING.equals(page)) {
 		        view = handlePageFlightsArriving(request, response);
-		    } else if ("pageShowFlightsBoarding".equals(page)) {
+		    } else if (Constants.PAGE_SHOW_FLIGHTS_BOARDING.equals(page)) {
 		        view = handlePageFlightsBoarding(request, response);
-		    } else if ("pageShowFlightsTakingOff".equals(page)) {
+		    } else if (Constants.PAGE_SHOW_FLIGHTS_TAKING_OFF.equals(page)) {
 		        view = handlePageFlightsTakingOff(request, response);
-		    } else if ("pageShowFlightsTookOff".equals(page)) {
+		    } else if (Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF.equals(page)) {
 		        view = handlePageFlightsTookOff(request, response);
-		    } else if ("loginAdmin".equals(page)) {
+		    } else if (Constants.LOGIN_ADMIN.equals(page)) {
 		        view = handleLoginAdmin(request, response);
 		    } else {
 		        view = Constants.INDEX;
@@ -142,7 +142,7 @@ public class AirProjectServlet extends HttpServlet {
 				datasource.insertFlight(flight);
 				request.setAttribute("success", "Voo Cadastrado Com Sucesso!");
 				
-				return "airport.do?action=redirectTo&page=pageAdmin";
+				return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
 			}
 			else
 			{
@@ -187,7 +187,7 @@ public class AirProjectServlet extends HttpServlet {
 		
 		datasource.updateFlight(flightNumber);
 		
-		return "airport.do?action=redirectTo&page=pageAdmin";
+		return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
 	}
 
 	private String handlePageFlights(HttpServletRequest request, HttpServletResponse response, TotemModel totem, String attributeName, String pageName) throws ServletException, IOException {

@@ -1,4 +1,5 @@
 <%@page import="br.edu.ifsp.dsw1.model.entity.FlightData"%>
+<%@page import="br.edu.ifsp.dsw1.utils.Constants"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,7 +11,7 @@
 	
 	if(isLoadData == null)
 	{
-		response.sendRedirect("airport.do?action=redirectTo&page=pageShowFlightsBoarding");
+		response.sendRedirect(Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_SHOW_FLIGHTS_BOARDING);
 		return;
 	}
 	else
@@ -42,7 +43,6 @@
 				out.println("Compania: " + flight.getCompany());
 				out.println("Data: " + flight.getTime());
 				out.println("Estado: " + flight.getState().getClass().getSimpleName());
-				out.println("<a href=\"airport.do?action=updateFlight&flightNumberUpdate=" + flight.getFlightNumber() + "\">Atualizar</a>");
 				out.println("\n\n\n");
 			}
 		}

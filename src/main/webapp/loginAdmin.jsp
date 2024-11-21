@@ -1,3 +1,4 @@
+<%@page import="br.edu.ifsp.dsw1.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
@@ -5,7 +6,7 @@
 	var isLogged = session.getAttribute("user"); 
 	
 	if (isLogged != null) {
-		response.sendRedirect("airport.do?action=redirectTo&page=pageAdmin");
+		response.sendRedirect(Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	}
 %> 
    
@@ -25,7 +26,7 @@
 	<div class = "formLogin">
 		<h1>Login</h1>
         
-        <form action = "airport.do?action=login" method = "post">
+        <form action = "<%= Constants.ACTION_LOGIN_URL %>" method = "post">
         	<div class = "field">
         		<label for = "user">Usuário </label>
         		<input type = "text" name = "user" id = "user" required>
