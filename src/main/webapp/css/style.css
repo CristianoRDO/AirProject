@@ -2,33 +2,175 @@
 
 *{
 	margin: 0;
-	paddin: 0;
+	padding: 0;
 }
 
-.formLogin{
+.cabecalho{
+	background-color: #19232D;
+}
+
+.cabecalho a {
+	color: white;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.cabecalho a:hover {
+	color: #DCBB87;
+}
+
+.cabecalho ul li:last-child a{
+	background-color: #DCBB87;
+	color: #fff;
+}
+
+.cabecalho ul li:last-child a:hover{
+	background-color: transparent;
+	border: 1px solid #DCBB87;
+	color: #DCBB87;
+}
+
+.corDetalhe{
+	color: #DCBB87;
+}
+
+h1, h2, h3, h4, h5{
+	color: #051242;
+}
+
+p{
+	font-size: 14px;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.container{
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+}
+
+.conteudoPrincipal{
+	width: 70vw;
+	min-height: calc(100vh - 120px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 2rem;
+	margin-top: 2rem;
+}
+
+.textoInicial{
+	text-align: center;
+	width: 60%;
+}
+
+.secaoCardVoos{
+	text-align: center;
+	width: 100%;
+	margin: 2rem 0;
+}
+
+.cardVoo {
+	padding: 1rem;
+	border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; 
+}
+
+.cardVoo:hover {
+    transform: scale(1.05);
+}
+
+.textoInicial h1{
+	margin-bottom: 3rem;
+}
+
+.tabela{
+	text-align: center;
+	width: 100%;
+}
+
+.formModel{
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	border-radius: 6px;
 	border:1px solid black;
-	max-width: 30vw;
+	width: 50%;
 	padding: 1rem;
 }
 
-.formLogin h1{
+.formModel h1{
 	text-align: center;
 }
 
-.formLogin .field{
+.formModel .field{
 	margin-bottom: 1rem;
 }
 
-.formLogin .field input{
+.formModel .field input{
 	display: block;
 	width: 100%;
 	height: 32px;	
+	border-radius: 6px;
+	border: 1px solid gray;
+	padding: 4px;
 }
 
-.formLogin button{
+.formModel button{
 	display: block;
 	width: 100%;
 	height: 32px;
+	border-radius: 24px;
+	background-color: #DCBB87;
+	color: #19232D;
+	border: 1px solid #19232D;
+	transition: 0.3s;
 }
+
+.formModel button:hover{
+	display: block;
+	width: 100%;
+	height: 32px;
+	border-radius: 24px;
+	background-color: #19232D;
+	color: #DCBB87;
+	border: 1px solid #DCBB87;
+	 
+}
+
+
+.titlePage{
+	padding-bottom: 1rem;
+	text-align: center;
+	width: 100%;
+	border-bottom: 2px solid black;
+	margin-bottom: 2rem;
+}
+
+.tabela{
+	width: 70%;
+}
+
+.btnCadastrarVoo{
+	text-decoration: none;
+	padding: 4px;
+	border-radius: 6px;
+	background-color: #DCBB87;
+	color: #19232D;
+	border: 1px solid #19232D; 
+	transition: 0.3s;
+	margin-bottom: 1rem;
+}
+
+.btnCadastrarVoo:hover{
+	background-color: #19232D;
+	color: #DCBB87;
+	border: 1px solid #DCBB87; 
+}
+

@@ -24,6 +24,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="refresh" content="10">
 	<title>AirPort - Sala de Desembarque</title>
 	<jsp:include page="/includes/head.html" />
 </head>
@@ -32,23 +33,61 @@
     	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
 	</jsp:include>
 	
-	<h1>Voos Desembarcando</h1>
+	<div class = container>
+		<div class = "conteudoPrincipal">
 	
-	<%  
-		if(datasource != null)
-		{
-			for(FlightData flight: datasource)
-			{
-				out.println("Numero: " + flight.getFlightNumber());
-				out.println("Compania: " + flight.getCompany());
-				out.println("Data: " + flight.getTime());
-				out.println("Estado: " + flight.getState().getClass().getSimpleName());
-				out.println("\n\n\n");
-			}
-		}
-		
-	%>
-		
+			<h1 class = "titlePage">Voos Desembarcando</h1>
+			
+			<%  
+			    if (datasource != null && !datasource.isEmpty()) {
+			%>
+			    <div class="tabela table-responsive">
+			        <table class="table">
+			            <thead class = "bg-primary text-white">
+			                <tr>
+			                    <th scope="col">Número</th>
+			                    <th scope="col">Compania</th>
+			                    <th scope="col">Data</th>
+			                    <th scope="col">Estado</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <% 
+			                    for (FlightData flight : datasource) { 
+			                %>
+			                    <tr>
+			                        <td><%= flight.getFlightNumber() %></td>
+			                        <td><%= flight.getCompany() %></td>
+			                        <td><%= flight.getTime() %></td>
+			                        <td><%= flight.getState().getClass().getSimpleName() %></td>
+			                    </tr>
+			                <% 
+			                    } 
+			                %>
+			            </tbody>
+			        </table>
+			    </div>
+			<%  
+			    } else {
+			%>
+			    <div class="text-center">
+			        <lord-icon
+			            src="https://cdn.lordicon.com/dicvhxpz.json"
+			            trigger="loop"
+			            state="hover-look-around"
+			            delay="3000"
+			            colors="primary:#000000,secondary:#000000"
+			            style="width:10rem;height:10rem">
+			        </lord-icon>
+			        <h4>Opss... Nenhum Voo Com Estado de Desembarcando Foi Encontrado.</h4>
+			    </div>
+			<%  
+			    }
+			%>
+		</div>
+	</div>
+	
+	<jsp:include page="/includes/footer.html" />
 	<jsp:include page="/includes/scripts.html" />
 </body>
 </html>

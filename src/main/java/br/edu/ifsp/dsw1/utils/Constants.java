@@ -2,6 +2,10 @@ package br.edu.ifsp.dsw1.utils;
 
 public final class Constants {
 	
+    // Parâmetros de login
+    public static final String USER = "admin";
+    public static final String PASSWORD = "admin";
+	
 	// Nome do Servlet
 	public static final String SERVLET_NAME = "airport.do";
 	
@@ -33,13 +37,4 @@ public final class Constants {
     public static final String ACTION_REGISTER_FLIGHT_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + REGISTER_FLIGHT;
     public static final String ACTION_UPDATE_FLIGHT_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + UPDATE_FLIGHT + "&flightNumberUpdate=";
     
-    // Parâmetros de login
-    public static final String USER = "admin";
-    public static final String PASSWORD = "admin";
-    
-    // Mensagens de erro e sucesso
-    public static final String ERROR_INVALID_DATA = "Dados Inválidos.";
-    public static final String ERROR_INVALID_DATE = "Data Inválida.";
-    public static final String ERROR_FLIGHT_ALREADY_EXISTS = "Voo Já Cadastrado.";
-    public static final String SUCCESS_FLIGHT_REGISTERED = "Voo Cadastrado Com Sucesso!";
 }

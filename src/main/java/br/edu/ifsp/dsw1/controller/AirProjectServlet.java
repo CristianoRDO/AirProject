@@ -135,15 +135,15 @@ public class AirProjectServlet extends HttpServlet {
 		var flightCompany = request.getParameter("flightCompany");
 		var flightTime = request.getParameter("flightTime");
 		
-		if (isBlank(flightNumberStr)) {
+		if (isBlankOrNull(flightNumberStr)) {
 			return setErrorAndRedirect(request, "Número do Voo é Obrigatório.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
-	    if (isBlank(flightCompany)) {
+	    if (isBlankOrNull(flightCompany)) {
 	    	return setErrorAndRedirect(request, "Companhia Aérea é Obrigatória.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
-	    if (isBlank(flightTime)) {
+	    if (isBlankOrNull(flightTime)) {
 	    	return setErrorAndRedirect(request, "Horário do Voo é Obrigatório.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
@@ -206,16 +206,17 @@ public class AirProjectServlet extends HttpServlet {
 	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String flightNumberStr = request.getParameter("flightNumberUpdate");
 
-	    if (isBlank(flightNumberStr)) {
-	    	return setErrorAndRedirect(request, "O Número do Voo é Obrigatório Para Atualização.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
+		// Verifica se o número do voo é válido
+	    if (isBlankOrNull(flightNumberStr)) {
+	        return setErrorAndRedirect(request, "Opss.. Não Foi Possível Atualizar o Voo. O Número está Vazio.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	    }
 
 	    try {
 	        Long flightNumber = Long.parseLong(flightNumberStr);
-	        datasource.updateFlight(flightNumber);
-	        return setSuccessAndRedirect(request, "Voo Atualizado Com Sucesso!", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
+	        datasource.updateFlight(flightNumber);  // Atualiza o voo
+	        return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN; // Redireciona para a página de admin
 	    } catch (NumberFormatException e) {
-	    	return setErrorAndRedirect(request, "O Número do Voo Deve Ser um Número Válido.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
+	        return setErrorAndRedirect(request, "Opss.. Não Foi Possível Atualizar o Voo. O Número é Inválido.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	    }
 	}
 	
@@ -241,7 +242,7 @@ public class AirProjectServlet extends HttpServlet {
 	    return handlePageFlights(request, response, totemTookOff, "listTotemFlightsTookOff", Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF);
 	}
 	
-	private boolean isBlank(String value) {
+	private boolean isBlankOrNull(String value) {
 	    return value == null || value.isBlank();
 	}
 	

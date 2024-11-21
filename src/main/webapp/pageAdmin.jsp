@@ -41,26 +41,66 @@
     	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
 	</jsp:include>
 	
-	<a href="<%= Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_FORM_FLIGHT %>">Cadastrar Voo</a>
-
+	<div class = container>
+		<div class = "conteudoPrincipal">
 	
-	<%  
-		if(datasource != null)
-		{
-			for (FlightData flight : datasource) {
-			    out.println("Numero: " + flight.getFlightNumber());
-			    out.println("Compania: " + flight.getCompany());
-			    out.println("Data: " + flight.getTime());
-			    out.println("Estado: " + flight.getState().getClass().getSimpleName());
-			    out.println("<a href=\"" + Constants.ACTION_UPDATE_FLIGHT_URL + flight.getFlightNumber() + "\">Atualizar</a>");
-			    out.println("\n\n\n");
-			}
-
-		}
+			<h1 class = "titlePage">Gerenciamento de Voos</h1>
 		
+			<%  
+		        if (datasource != null) {
+		            if (datasource.size() != 0) {
+		    %>			
+		    			<a href="<%= Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_FORM_FLIGHT %>" class = "btnCadastrarVoo">Cadastrar Voo</a>
+		    			<div class = "tabela table-responsive">
+			                <table class="table">
+			                    <thead>
+			                        <tr>
+			                            <th scope="col">Número</th>
+			                            <th scope="col">Compania</th>
+			                            <th scope="col">Data</th>
+			                            <th scope="col">Estado</th>
+			                            <th scope="col">Ações</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <% for (FlightData flight : datasource) { %>
+			                            <tr>
+			                                <td><%= flight.getFlightNumber() %></td>
+			                                <td><%= flight.getCompany() %></td>
+			                                <td><%= flight.getTime() %></td>
+			                                <td><%= flight.getState().getClass().getSimpleName() %></td>
+			                                <td>
+			                                    <a href="<%= Constants.ACTION_UPDATE_FLIGHT_URL + flight.getFlightNumber() %>">Atualizar</a>
+			                                </td>
+			                            </tr>
+			                        <% } %>
+			                    </tbody>
+			                </table>
+			            </div>
+		    <%      
+		            } else {
+		    %>
+		                <div class="text-center">
+					        <lord-icon
+					            src="https://cdn.lordicon.com/dicvhxpz.json"
+					            trigger="loop"
+					            state="hover-look-around"
+					            delay="3000"
+					            colors="primary:#000000,secondary:#000000"
+					            style="width:10rem;height:10rem">
+					        </lord-icon>
+					        <h4>Opss... Nenhum Voo Cadastrado No Banco.</h4>
+					    </div>
+					    
+					    <a href="<%= Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_FORM_FLIGHT %>" class = "btnCadastrarVoo">Cadastrar Voo</a>
+		    <%      
+		            }
+		        }
+		    %>
+		</div>
+	</div>
 	
-	%>
-	
+	<jsp:include page="/includes/footer.html" />
 	<jsp:include page="/includes/scripts.html" />
 </body>
 </html>

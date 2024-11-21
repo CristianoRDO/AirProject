@@ -24,41 +24,46 @@
     	<jsp:param name="isLogged" value="<%= (isLogged != null) ? \"true\" : \"false\" %>" />
 	</jsp:include>
 	
-	<div class = "formLogin">
-		<h1>Cadastrar Voo</h1>
-        
-        <form action = "<%= Constants.ACTION_REGISTER_FLIGHT_URL %>" method = "post">
-        	<div class = "field">
-        		<label for = "flightNumber">Numero do Voo </label>
-        		<input type = "number" name = "flightNumber" id = "flightNumber" required>
-        	</div>
-			
-			<div class = "field">
-				<label for = "flightCompany">Compania </label>
-				<input type = "text" name = "flightCompany" id = "flightCompany" required>
+	<div class = container>
+		<div class = "conteudoPrincipal">
+	
+			<div class = "formModel">
+				<h1>Cadastrar Voo</h1>
+		        
+		        <form action = "<%= Constants.ACTION_REGISTER_FLIGHT_URL %>" method = "post">
+		        	<div class = "field">
+		        		<label for = "flightNumber">Numero do Voo </label>
+		        		<input type = "number" name = "flightNumber" id = "flightNumber" required>
+		        	</div>
+					
+					<div class = "field">
+						<label for = "flightCompany">Compania </label>
+						<input type = "text" name = "flightCompany" id = "flightCompany" required>
+					</div>
+					
+					<div class = "field">
+						<label for = "flightTime">Data </label>
+						<input type = "datetime-local" name = "flightTime" id = "flightTime" required>
+					</div>
+					
+					<%
+					    String errorMsg = (String) request.getAttribute("error");
+					    String successMsg = (String) request.getAttribute("success");
+					
+					    if (errorMsg != null) {
+					%>
+					        <p style="color: red; text-align: center"><%= errorMsg %></p>
+					<%
+					    } else if (successMsg != null) {
+					%>
+					        <p style="color: green; text-align: center"><%= successMsg %></p>
+					<%
+					    }
+					%>
+					<button type = "submit">CADASTRAR</button>
+				</form>
 			</div>
-			
-			<div class = "field">
-				<label for = "flightTime">Data </label>
-				<input type = "datetime-local" name = "flightTime" id = "flightTime" required>
-			</div>
-			
-			<%
-			    String errorMsg = (String) request.getAttribute("error");
-			    String successMsg = (String) request.getAttribute("success");
-			
-			    if (errorMsg != null) {
-			%>
-			        <span style="color: red;"><%= errorMsg %></span>
-			<%
-			    } else if (successMsg != null) {
-			%>
-			        <span style="color: green;"><%= successMsg %></span>
-			<%
-			    }
-			%>
-			<button type = "submit">CADASTRAR</button>
-		</form>
+		</div>
 	</div>
 	
 	<jsp:include page="/includes/scripts.html" />
