@@ -100,19 +100,17 @@ public class AirProjectServlet extends HttpServlet {
 		var password = request.getParameter("password");
 		
 		if (user == null || user.isBlank() || password == null || password.isBlank()) {
-	        request.setAttribute("error", "Usuário e Senha são Obrigatórios.");
-	        return Constants.LOGIN_ADMIN;
+			return setErrorAndRedirect(request, "Usuário e Senha são Obrigatórios.", Constants.LOGIN_ADMIN);
 	    }
 		
-		if(validateLogin(user, password)){
-			var session = request.getSession();
-			session.setAttribute("user", user);
-			
-			return Constants.PAGE_ADMIN;
+		if(!validateLogin(user, password)){
+			return setErrorAndRedirect(request, "Dados Inválidos.", Constants.LOGIN_ADMIN);
 		} 
 		
-		request.setAttribute("error", "Dados Inválidos.");
-		return Constants.LOGIN_ADMIN;
+		var session = request.getSession();
+		session.setAttribute("user", user);
+		return Constants.PAGE_ADMIN;
+		
 	}
 	
 	private boolean validateLogin(String user, String password)
@@ -137,43 +135,39 @@ public class AirProjectServlet extends HttpServlet {
 		var flightCompany = request.getParameter("flightCompany");
 		var flightTime = request.getParameter("flightTime");
 		
-		if (flightNumberStr == null || flightNumberStr.isBlank()) {
-	        request.setAttribute("error", "Número do Voo é Obrigatório.");
-	        return Constants.PAGE_FORM_FLIGHT;
+		if (isBlank(flightNumberStr)) {
+			return setErrorAndRedirect(request, "Número do Voo é Obrigatório.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
-	    if (flightCompany == null || flightCompany.isBlank()) {
-	        request.setAttribute("error", "Companhia Aérea é Obrigatória.");
-	        return Constants.PAGE_FORM_FLIGHT;
+	    if (isBlank(flightCompany)) {
+	    	return setErrorAndRedirect(request, "Companhia Aérea é Obrigatória.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
-	    if (flightTime == null || flightTime.isBlank()) {
-	        request.setAttribute("error", "Horário do Voo é Obrigatório.");
-	        return Constants.PAGE_FORM_FLIGHT;
+	    if (isBlank(flightTime)) {
+	    	return setErrorAndRedirect(request, "Horário do Voo é Obrigatório.", Constants.PAGE_FORM_FLIGHT);
 	    }
 
 	    try {
 	        Long flightNumber = Long.parseLong(flightNumberStr);
 
-	        if (!findFlightByNumber(flightNumber)) {
-	            if (!isFutureArrivalTime(flightTime)) {
-	                FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
-	                flight.setState(Arriving.getIntance());
-	                datasource.insertFlight(flight);
-
-	                request.setAttribute("success", "Voo Cadastrado com Sucesso!");
-	                return Constants.PAGE_FORM_FLIGHT;
-	            } else {
-	                request.setAttribute("error", "Horário Inválido. O Voo Deve ter Horário Futuro.");
-	            }
-	        } else {
-	            request.setAttribute("error", "Voo já Cadastrado.");
+	        if (findFlightByNumber(flightNumber)) {
+	        	return setErrorAndRedirect(request, "Voo já Cadastrado.", Constants.PAGE_FORM_FLIGHT);
 	        }
+
+	        if (isArrivalTimePast(flightTime)) {
+	        	return setErrorAndRedirect(request, "Horário Inválido. O Voo Deve ter Horário Futuro.", Constants.PAGE_FORM_FLIGHT);
+	        }
+
+	        FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
+	        flight.setState(Arriving.getIntance());
+	        datasource.insertFlight(flight);
+	        
+	        return setSuccessAndRedirect(request, "Voo Cadastrado com Sucesso!", Constants.PAGE_FORM_FLIGHT);
+
 	    } catch (NumberFormatException e) {
-	        request.setAttribute("error", "Número do Voo Deve Ser um Número Válido.");
+	    	return setErrorAndRedirect(request, "O Número do Voo Deve Ser um Número Válido.", Constants.PAGE_FORM_FLIGHT);
 	    }
-		
-		return Constants.PAGE_FORM_FLIGHT;
+
 	}
 	
 	private boolean findFlightByNumber(Long flightNumber) {
@@ -181,7 +175,7 @@ public class AirProjectServlet extends HttpServlet {
 	            .anyMatch(f -> f.getFlightNumber().equals(flightNumber));
 	}
 		
-	private boolean isFutureArrivalTime(String flightTime) {
+	private boolean isArrivalTimePast(String flightTime) {
 		if (flightTime == null || flightTime.isBlank()) {
 	        return false; // Data inválida é tratada como não sendo futura.
 	    }
@@ -212,21 +206,17 @@ public class AirProjectServlet extends HttpServlet {
 	private String handleUpdateStateFlight(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String flightNumberStr = request.getParameter("flightNumberUpdate");
 
-	    if (flightNumberStr == null || flightNumberStr.isBlank()) {
-	        request.setAttribute("error", "Número do Voo é Obrigatório Para Atualização.");
-	        return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
+	    if (isBlank(flightNumberStr)) {
+	    	return setErrorAndRedirect(request, "O Número do Voo é Obrigatório Para Atualização.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	    }
 
 	    try {
 	        Long flightNumber = Long.parseLong(flightNumberStr);
 	        datasource.updateFlight(flightNumber);
-	        request.setAttribute("success", "Voo Atualizado Com Sucesso");
-	        return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
+	        return setSuccessAndRedirect(request, "Voo Atualizado Com Sucesso!", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	    } catch (NumberFormatException e) {
-	        request.setAttribute("error", "Número do Voo Deve Ser um Número Válido.");
+	    	return setErrorAndRedirect(request, "O Número do Voo Deve Ser um Número Válido.", Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN);
 	    }
-	    
-		return Constants.ACTION_REDIRECTTO_URL + Constants.PAGE_ADMIN;
 	}
 	
 	private String handlePageFlights(HttpServletRequest request, HttpServletResponse response, TotemModel totem, String attributeName, String pageName) throws ServletException, IOException {
@@ -251,8 +241,18 @@ public class AirProjectServlet extends HttpServlet {
 	    return handlePageFlights(request, response, totemTookOff, "listTotemFlightsTookOff", Constants.PAGE_SHOW_FLIGHTS_TOOK_OFF);
 	}
 	
+	private boolean isBlank(String value) {
+	    return value == null || value.isBlank();
+	}
 	
+	private String setErrorAndRedirect(HttpServletRequest request, String errorMessage, String redirectPage) {
+	    request.setAttribute("error", errorMessage);
+	    return redirectPage;
+	}
 
+	private String setSuccessAndRedirect(HttpServletRequest request, String successMessage, String redirectPage) {
+	    request.setAttribute("success", successMessage);
+	    return redirectPage;
+	}
 
-	
 }
