@@ -28,8 +28,6 @@ public class TotemArriving extends TotemModel{
 	@Override
 	public void update(FlightData flight) {
 		if (flight != null) {
-		    // Obter a lista de voos uma vez.
-		    List<FlightData> flights = getFlights();
 		    
 		    // Verificar se o voo já existe.
 		    FlightData existingFlight = findByNumber(flight.getFlightNumber());

@@ -30,7 +30,6 @@ public class TotemTookOff extends TotemModel{
 	@Override
 	public void update(FlightData flight) {
 		if (flight != null) {
-		    
 		    // Se o voo não existir, e o estado for TookOff, adicionamos no Totem.
 		    if (flight.getState() instanceof TookOff) 
 		    {
