@@ -150,7 +150,7 @@ public class AirProjectServlet extends HttpServlet {
 	{
 		var session = request.getSession(false);
 		session.invalidate();
-		return Constants.INDEX;
+		return Constants.LOGIN_ADMIN;
 	}
 	
 	// Método responsável pelo registro de novos voos.
