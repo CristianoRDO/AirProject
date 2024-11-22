@@ -1,6 +1,5 @@
 package br.edu.ifsp.dsw1.model.entity;
 
-import java.util.List;
 import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 
 /*
@@ -28,19 +27,20 @@ public class TotemArriving extends TotemModel{
 	@Override
 	public void update(FlightData flight) {
 		if (flight != null) {
-		    
-		    // Verificar se o voo já existe.
-		    FlightData existingFlight = findByNumber(flight.getFlightNumber());
-		    
-		    // Se o voo não existir, e o estado for Arriving, adicionamos no Totem.
-		    if (existingFlight == null && flight.getState() instanceof Arriving) 
+		   
+		    // Se o estado do voo for Arriving, adicionamos no Totem.
+		    if (flight.getState() instanceof Arriving) 
 		    {
 		        FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
 		        flightTotem.setState(flight.getState());
 		        addList(flightTotem);
-		    } else if (existingFlight != null) {
-		        // Se o voo já existe, removemos do Totem.
-		        removeList(existingFlight);
+		    } else{
+		    	// Verificar se o voo existe na lista.
+			    FlightData existingFlight = findByNumber(flight.getFlightNumber());
+		    	if (existingFlight != null) {
+		    		// Se o voo existe, removemos do Totem.
+		    		removeList(existingFlight);
+		    	} 
 		    }
 		}
 	}

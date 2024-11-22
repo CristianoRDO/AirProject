@@ -24,9 +24,14 @@ public final class Constants {
     public static final String PAGE_SHOW_FLIGHTS_TOOK_OFF = "pageShowFlightsTookOff.jsp";
     public static final String PAGE_FORM_FLIGHT = "formFlight.jsp";
     
+    // Ações
+    
     // Prefixo de ação
     public static final String ACTION_PREFIX = "action";
-
+    
+    // URL ação
+    public static final String ACTION_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "="; // airport.do?action=
+    
     // Ações gerais
     public static final String LOGOUT = "logout";
     public static final String LOGIN = "login";
@@ -36,10 +41,11 @@ public final class Constants {
     public static final String UPDATE_FLIGHT = "updateFlight";
     
     // Caminhos de ação
-    public static final String ACTION_LOGIN_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + LOGIN;
-    public static final String ACTION_LOGOUT_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + LOGOUT;
-    public static final String ACTION_REDIRECTTO_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + REDIRECTTO + "&" + PAGE + "=";
-    public static final String ACTION_REGISTER_FLIGHT_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + REGISTER_FLIGHT;
-    public static final String ACTION_UPDATE_FLIGHT_URL = SERVLET_NAME + "?" + ACTION_PREFIX + "=" + UPDATE_FLIGHT + "&flightNumberUpdate=";
+    public static final String ACTION_LOGIN_URL = ACTION_URL + LOGIN; // airport.do?action=login
+    public static final String ACTION_LOGOUT_URL = ACTION_URL + LOGOUT; // airport.do?action=logout
+    public static final String ACTION_REGISTER_FLIGHT_URL = ACTION_URL + REGISTER_FLIGHT; // airport.do?action=registerFlight
+    public static final String ACTION_UPDATE_FLIGHT_URL = ACTION_URL + UPDATE_FLIGHT + "&flightNumberUpdate="; // airport.do?action=updateFlight&flightNumberUpdate=
+    public static final String ACTION_REDIRECTTO_URL = ACTION_URL + REDIRECTTO + "&" + PAGE + "="; // airport.do?action=redirectTo&page=
+    
     
 }

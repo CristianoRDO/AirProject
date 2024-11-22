@@ -1,7 +1,5 @@
 package br.edu.ifsp.dsw1.model.entity;
 
-import java.util.List;
-
 import br.edu.ifsp.dsw1.model.flightstates.TookOff;
 
 /*
