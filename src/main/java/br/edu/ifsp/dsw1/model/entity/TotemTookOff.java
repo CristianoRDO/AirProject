@@ -30,21 +30,13 @@ public class TotemTookOff extends TotemModel{
 	@Override
 	public void update(FlightData flight) {
 		if (flight != null) {
-		    // Obter a lista de voos uma vez.
-		    List<FlightData> flights = getFlights();
-		    
-		    // Verificar se o voo já existe.
-		    FlightData existingFlight = findByNumber(flight.getFlightNumber());
 		    
 		    // Se o voo não existir, e o estado for TookOff, adicionamos no Totem.
-		    if (existingFlight == null && flight.getState() instanceof TookOff) 
+		    if (flight.getState() instanceof TookOff) 
 		    {
 		        FlightData flightTotem = new FlightData(flight.getFlightNumber(), flight.getCompany(), flight.getTime());
 		        flightTotem.setState(flight.getState());
 		        addList(flightTotem);
-		    } else if (existingFlight != null) {
-		        // Se o voo já existe, removemos do Totem.
-		    	removeList(existingFlight);
 		    }
 		}
 	}
