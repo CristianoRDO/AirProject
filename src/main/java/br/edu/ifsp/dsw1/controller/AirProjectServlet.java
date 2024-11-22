@@ -1,7 +1,7 @@
 package br.edu.ifsp.dsw1.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import br.edu.ifsp.dsw1.model.entity.FlightData;
@@ -182,7 +182,7 @@ public class AirProjectServlet extends HttpServlet {
 	        
 	        // Verifica se o horário do voo está no passado
 	        if (isArrivalTimePast(flightTime)) {
-	        	return setErrorAndRedirect(request, "Horário Inválido. O Voo Deve ter Horário Futuro.", Constants.PAGE_FORM_FLIGHT);
+	        	return setErrorAndRedirect(request, "Horário Inválido. O Voo Deve ter um Horário Futuro.", Constants.PAGE_FORM_FLIGHT);
 	        }
 
 	        FlightData flight = new FlightData(flightNumber, flightCompany, flightTime);
@@ -223,14 +223,14 @@ public class AirProjectServlet extends HttpServlet {
 	// Método para verificar se o horário de chegada do voo é no passado
 	private boolean isArrivalTimePast(String flightTime) {
 		if (flightTime == null || flightTime.isBlank()) {
-	        return false; // Data inválida é tratada como não sendo futura.
+	        return false; // Horário inválido é tratado como não sendo passado.
 	    }
 
 	    try {
-	        LocalDateTime time = LocalDateTime.parse(flightTime);
-	        return time.isBefore(LocalDateTime.now());
+	        LocalTime time = LocalTime.parse(flightTime);
+	        return time.isBefore(LocalTime.now());
 	    } catch (DateTimeParseException e) {
-	        return false; // Se não puder ser analisada, considera-se inválida.
+	        return false; // Se o horário não puder ser analisado, considera-se inválido.
 	    }
 	}
 	

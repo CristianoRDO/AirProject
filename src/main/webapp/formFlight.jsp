@@ -2,15 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%
-	var isLogged = session.getAttribute("user"); 
-   	
-	if(isLogged == null)
-	{
-		response.sendRedirect(Constants.ACTION_REDIRECTTO_URL + Constants.INDEX);
-		return;
-	}
-%> 
+<% var isLogged = session.getAttribute("user"); %> 
 	
 <!DOCTYPE html>
 <html>
@@ -42,23 +34,23 @@
 					</div>
 					
 					<div class = "field">
-						<label for = "flightTime">Data </label>
-						<input type = "datetime-local" name = "flightTime" id = "flightTime" required>
+						<label for = "flightTime">Horário </label>
+						<input type = "time" name = "flightTime" id = "flightTime" required>
 					</div>
 					
 					<%
-					    String errorMsg = (String) request.getAttribute("error");
-					    String successMsg = (String) request.getAttribute("success");
+					String errorMsg = (String) request.getAttribute("error");
+					String successMsg = (String) request.getAttribute("success");
 					
-					    if (errorMsg != null) {
+					if (errorMsg != null) {
 					%>
-					        <p style="color: red; text-align: center"><%= errorMsg %></p>
+						<p style="color: red; text-align: center"><%= errorMsg %></p>
 					<%
-					    } else if (successMsg != null) {
+					} else if (successMsg != null) {
 					%>
-					        <p style="color: green; text-align: center"><%= successMsg %></p>
+						<p style="color: green; text-align: center"><%= successMsg %></p>
 					<%
-					    }
+					}
 					%>
 					<button type = "submit">CADASTRAR</button>
 				</form>
