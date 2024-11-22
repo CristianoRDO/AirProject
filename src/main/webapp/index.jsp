@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>AirPort - Inicial</title>
+	<title>SkyPort - Inicial</title>
 	<jsp:include page="/includes/head.html" />
 </head>
 <body>

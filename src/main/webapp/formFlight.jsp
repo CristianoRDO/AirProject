@@ -16,7 +16,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>AirPort - Cadastro de Voos</title>
+	<title>SkyPort - Cadastro de Voos</title>
 	<jsp:include page="/includes/head.html" />
 </head>
 <body>
@@ -37,7 +37,7 @@
 		        	</div>
 					
 					<div class = "field">
-						<label for = "flightCompany">Compania </label>
+						<label for = "flightCompany">Companhia </label>
 						<input type = "text" name = "flightCompany" id = "flightCompany" required>
 					</div>
 					

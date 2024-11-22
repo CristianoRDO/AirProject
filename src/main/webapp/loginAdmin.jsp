@@ -15,7 +15,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>AirPort - Login</title>
+	<title>SkyPort - Login</title>
 	<jsp:include page="/includes/head.html" />
 </head>
 <body>
@@ -46,7 +46,7 @@
 					
 					    if (errorMsg != null) {
 					%>
-					        <p style="color: red; tex-align:center;"><%= errorMsg %></p>
+					        <p style="color: red; text-align:center;"><%= errorMsg %></p>
 					<%
 					    }
 					%>

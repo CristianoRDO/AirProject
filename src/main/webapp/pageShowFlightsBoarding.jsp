@@ -25,7 +25,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="refresh" content="10">
-	<title>AirPort - Sala de Embarque</title>
+	<title>SkyPort - Sala de Embarque</title>
 	<jsp:include page="/includes/head.html" />
 </head>
 <body>
@@ -46,7 +46,7 @@
 			            <thead>
 			                <tr>
 			                    <th scope="col">Número</th>
-			                    <th scope="col">Compania</th>
+			                    <th scope="col">Companhia</th>
 			                    <th scope="col">Data</th>
 			                    <th scope="col">Estado</th>
 			                </tr>
