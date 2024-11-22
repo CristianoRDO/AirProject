@@ -75,7 +75,7 @@ Centraliza o controle das requisições, facilitando a manutenção.
 ### Página Inicial  
 - **Descrição:** A página inicial do sistema funciona como o ponto de entrada para a plataforma, apresentando seu objetivo principal: facilitar o gerenciamento e a consulta de voos em um ambiente aeroportuário. Nela, os usuários encontram informações sobre as funcionalidades oferecidas pelo sistema e têm acesso direto às principais seções.
 <div align="center">  
-<img src="screenshots/TelaInicial.png" alt="Página Inicial" width="600">  
+<img src="screenshots/TelaInicial.png" alt="Página Inicial" width="1000">  
 </div>  
 
 ---
@@ -83,8 +83,8 @@ Centraliza o controle das requisições, facilitando a manutenção.
 ### Página de Login 
 - **Descrição:** O sistema apresenta um formulário de login exclusivo para os administradores, permitindo sua autenticação e acesso às funcionalidades de gerenciamento de voos. O formulário inclui validação de entrada, garantindo que os dados fornecidos sejam corretos. Caso as credenciais estejam incorretas, uma mensagem de erro clara é exibida ao usuário.
 <div align="center">  
-<img src="screenshots/LoginAdmin.png" alt="Página de Login" width="600">  
-<img src="screenshots/ValidacaoFormularioLogin.png" alt="Validação de Login" width="600">  
+<img src="screenshots/LoginAdmin.png" alt="Página de Login" width="1000">  
+<img src="screenshots/ValidacaoFormularioLogin.png" alt="Validação de Login" width="1000">  
 </div>  
 
 ---
@@ -92,8 +92,8 @@ Centraliza o controle das requisições, facilitando a manutenção.
 ### Página de Administração  
 - **Descrição:** O sistema conta com uma **página exclusiva para administradores**, acessível após a autenticação bem-sucedida. Essa página permite o gerenciamento completo dos voos cadastrados no sistema. Se não houver voos cadastrados no sistema, uma **mensagem informativa** é exibida ao administrador, indicando a ausência de registros. Caso contrário, uma **tabela com os detalhes dos voos cadastrados** é apresentada, permitindo uma consulta fácil e organizada.
 <div align="center">  
-<img src="screenshots/ExibicaoMenuAdmin.png" alt="Menu de Administração" width="600">  
-<img src="screenshots/ExibicaoMenuAdminVoosCadastrados.png" alt="Voos Cadastrados" width="600">  
+<img src="screenshots/ExibicaoMenuAdmin.png" alt="Menu de Administração" width="1000">  
+<img src="screenshots/ExibicaoMenuAdminVoosCadastrados.png" alt="Voos Cadastrados" width="1000">  
 </div>  
 
 ---
@@ -101,8 +101,8 @@ Centraliza o controle das requisições, facilitando a manutenção.
 ### Formulário de Cadastro de Voos
 - **Descrição:** O sistema apresenta um formulário de cadastro de voos exclusivo para os administradores, permitindo o registro de mais voos no sistema. O formulário inclui validação de entradas, garantindo que os dados fornecidos sejam corretos. Caso alguma informação esteja incorreta, uma mensagem de erro clara é exibida ao usuário.
 <div align="center">  
-<img src="screenshots/FormularioCadastroVoo.png" alt="Cadastro de Voos" width="600">  
-<img src="screenshots/ValidaoFormularioCadastro.png" alt="Validação de Cadastro" width="600">  
+<img src="screenshots/FormularioCadastroVoo.png" alt="Cadastro de Voos" width="1000">  
+<img src="screenshots/ValidaoFormularioCadastro.png" alt="Validação de Cadastro" width="1000">  
 </div>  
 
 ---
@@ -110,9 +110,9 @@ Centraliza o controle das requisições, facilitando a manutenção.
 ### Totens de Informação  
 - **Descrição:** O sistema exibe uma lista de voos filtrados por estado. Se não houver voos no estado selecionado, uma mensagem informativa é apresentada ao usuário. Caso contrário, é exibida uma tabela com os detalhes dos voos disponíveis, permitindo consulta fácil e organizada.
 <div align="center">  
-<img src="screenshots/ExibicaoTotemVazio.png" alt="Totem Sem Voos" width="600">  
-<img src="screenshots/ExibicaoTotemPreenchido.png" alt="Totem com Voos" width="600">  
-<img src="screenshots/ExibicaoTotemVoosDecolados.png" alt="Totem de Voos Decolados" width="600">  
+<img src="screenshots/ExibicaoTotemVazio.png" alt="Totem Sem Voos" width="1000">  
+<img src="screenshots/ExibicaoTotemPreenchido.png" alt="Totem com Voos" width="1000">  
+<img src="screenshots/ExibicaoTotemVoosDecolados.png" alt="Totem de Voos Decolados" width="1000">  
 </div>  
 
 ---
